@@ -133,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           const Center(child: CircularProgressIndicator()),
                       child: ElevatedButton(
                           onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
+                            if (_formKey.currentState!.validate()) {
                               return;
                             }
                             _controller.userSignUp(
