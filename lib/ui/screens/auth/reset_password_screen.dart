@@ -91,25 +91,30 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     const SizedBox(
                       height: 16,
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Visibility(
-                        visible: _controller.setPasswordInProgress == false,
-                        replacement: const Center(
-                          child: CircularProgressIndicator(),
+                    GetBuilder<ResetPasswordController>(builder: (controller) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Visibility(
+                          visible: _controller.setPasswordInProgress == false,
+                          replacement: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (!_formKey.currentState!.validate()) {
+                                return;
+                              }
+                              _controller.resetPassword(
+                                widget.email,
+                                widget.otp,
+                                _passwordTEController.text,
+                              );
+                            },
+                            child: const Text('Confirm'),
+                          ),
                         ),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (!_formKey.currentState!.validate()) {
-                              return;
-                            }
-                            _controller.resetPassword(widget.email, widget.otp,
-                                _passwordTEController);
-                          },
-                          child: const Text('Confirm'),
-                        ),
-                      ),
-                    ),
+                      );
+                    }),
                     const SizedBox(
                       height: 16,
                     ),

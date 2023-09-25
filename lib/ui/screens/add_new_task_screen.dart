@@ -58,21 +58,23 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Visibility(
-                      visible: controller.adNewTaskInProgress == false,
-                      replacement: const Center(
-                        child: CircularProgressIndicator(),
+                  GetBuilder<AddNewTaskController>(builder: (controller) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Visibility(
+                        visible: controller.adNewTaskInProgress == false,
+                        replacement: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              controller.addNewTask(_titleTEController.text,
+                                  _descriptionTEController.text);
+                            },
+                            child: const Icon(Icons.arrow_forward_ios)),
                       ),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            controller.addNewTask(_titleTEController.text,
-                                _descriptionTEController.text);
-                          },
-                          child: const Icon(Icons.arrow_forward_ios)),
-                    ),
-                  ),
+                    );
+                  }),
                 ],
               ),
             ),

@@ -86,21 +86,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Visibility(
-                      visible: _controller.otpVerificationInProgress == false,
-                      replacement: const Center(
-                        child: CircularProgressIndicator(),
+                  GetBuilder<OtpVerificationController>(builder: (controller) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Visibility(
+                        visible: _controller.otpVerificationInProgress == false,
+                        replacement: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            _controller.verifyOTP(
+                                widget.email, _otpTEController.text);
+                          },
+                          child: const Text('Verify'),
+                        ),
                       ),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          _controller.verifyOTP(widget.email, _otpTEController);
-                        },
-                        child: const Text('Verify'),
-                      ),
-                    ),
-                  ),
+                    );
+                  }),
                   const SizedBox(
                     height: 16,
                   ),
